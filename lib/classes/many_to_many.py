@@ -5,17 +5,20 @@ class Article:
         self.magazine = magazine
         self.title = title
         Article.all.append(self)
+        print(self.title)
 
     @property
     def title(self):
+        return self.bob
         return self._title
     
     @title.setter
     def title(self, title):
         if isinstance(title, str) and 50 >= len(title) >= 5 and not hasattr(self, '_title'):
-            self._title = title
+            self.bob = title
         else:
             raise Exception('Invalid title')
+        
 
     @property
     def author(self):
@@ -26,7 +29,7 @@ class Article:
         if isinstance(author, Author):
             self._author = author
         else:
-            raise Exception('Author not found')
+            raise Exception('Invalid Author')
 
     @property
     def magazine(self):
@@ -37,7 +40,7 @@ class Article:
         if isinstance(magazine, Magazine):
             self._magazine = magazine
         else:
-            raise Exception('Magazine not found')
+            raise Exception('Invalid Magazine')
         
 class Author:
     
@@ -53,9 +56,10 @@ class Author:
         if isinstance(name, str) and len(name) > 0 and not hasattr(self, 'name'): #check hasattr if fails
             self._name = name
         else:
-            raise Exception('Invalid author')
+            raise Exception('Invalid author name')
 
     def articles(self):
+        #is isinstance needed here?
         return [article for article in Article.all if article.author == self]
 
     def magazines(self):
